@@ -1,5 +1,6 @@
 {
   "name": "api",
+  "author": "Erick Marroquin",
   "version": "1.0.0",
   "description": "",
   "type": "module",
@@ -12,7 +13,6 @@
     "start": "node index.js"
   },
   "keywords": [],
-  "author": "",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",

@@ -3,12 +3,13 @@ import cors from 'cors'
 import swagger from "./swagger.js"
 import { makePublication } from "./publication.js"
 
-import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
-import { promises as fsPromises } from 'fs';
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-const { readFile } = fsPromises;
+import { fileURLToPath } from 'url'
+import { dirname, join } from 'path'
+import { promises as fsPromises } from 'fs'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
+const { readFile } = fsPromises
 
 const app = express()
 app.use(express.json())
@@ -36,10 +37,6 @@ app.get('/', (req, res) => {
  *       responses:
  *         200:
  *           description: The created publication.
- *           content:
- *             application/json:
- *               schema:
- *                 $ref: '#/components/schemas/Publication'
  *         500:
  *           description: Some server error
  * components:
@@ -65,10 +62,13 @@ app.get('/', (req, res) => {
  */
 app.post('/publication', async (req, res) => {
     const { price, description } = req.body
-    await makePublication(price, description)
-    const imageBase64 = await readFile(join(__dirname, 'images', 'publication.png'), { encoding: 'base64' })
-    res.json({ price, description, imageBase64 })
-    // res.send('Publication created successfully.');
+    try {
+        await makePublication(price, description)
+        const imageBase64 = await readFile(join(__dirname, 'images', 'publication.png'), { encoding: 'base64' })
+        res.json({ price, description, imageBase64 })
+    } catch (error) {
+        res.status(500).send(error)
+    }
 });
 
 swagger(app)

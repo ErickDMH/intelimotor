@@ -1,0 +1,25 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {   // Client
+            "name": "Launch Client via NPM",
+            "type": "node",
+            "request": "launch",
+            "cwd": "${workspaceRoot}/Client",
+            "runtimeExecutable": "npm",
+            "runtimeArgs": [
+                "run", "dev"
+            ],
+        },    
+        {   // API
+            "name": "Launch API via NPM",
+            "type": "node",
+            "request": "launch",
+            "cwd": "${workspaceRoot}/API",
+            "runtimeExecutable": "npm",
+            "runtimeArgs": [
+                "run", "start"
+            ],
+        }
+    ]
+}
